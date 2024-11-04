@@ -1,4 +1,4 @@
-org: geraldocolchado
+org: camilacovenas
 service: api-s3
 
 provider:
@@ -8,7 +8,7 @@ provider:
   memorySize: 256
   timeout: 30
   iam:
-    role: arn:aws:iam::447891120606:role/LabRole
+    role: arn:aws:iam::707572733882:role/LabRole
 
 functions:
   lista_buckets:
@@ -28,3 +28,31 @@ functions:
           method: post
           cors: true
           integration: lambda
+
+    crearBucket:
+    handler: crear_bucket.lambda_handler
+    events:
+      - http:
+          path: /s3/crearBucket
+          method: post
+          cors: true
+          integration: lambda
+
+  crearDirectorio:
+    handler: crear_directorio.lambda_handler
+    events:
+      - http:
+          path: /s3/bucket/crearDirectorio
+          method: post
+          cors: true
+          integration: lambda          
+
+  subirArchivo:
+    handler: subir_archivo.lambda_handler
+    events:
+      - http:
+          path: /s3/bucket/subirArchivo
+          method: post
+          cors: true
+          integration: lambda          
+
